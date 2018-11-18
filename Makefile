@@ -54,6 +54,6 @@ ifeq (,$(wildcard $(PYTEST)))
 endif
 
 test.unit:
-	env DJANGO_SETTINGS_MODULE=hackman.settings_test $(PYTEST) --cov-report=term-missing --cov-fail-under=98 --cov=.
+	env DJANGO_SETTINGS_MODULE=hackman.settings_test $(PYTEST) --cov-report=term-missing --cov-fail-under=78 --cov=.
 
 test: test.style test.unit
