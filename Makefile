@@ -46,7 +46,14 @@ dev.run:
 test.style:
 	flake8
 
+# Try to automatically detect if we are running on Debian or Ubuntu in the
+# Travis-CI (because the ubnuts seem to have a different name for pytest. FFS)
+PYTEST := /usr/bin/pytest-3
+ifeq (,$(wildcard $(PYTEST)))
+    PYTEST := /usr/bin/py.test-3
+endif
+
 test.unit:
-	env DJANGO_SETTINGS_MODULE=hackman.settings_test /usr/bin/pytest-3 --cov-report=term-missing --cov-fail-under=98 --cov=.
+	env DJANGO_SETTINGS_MODULE=hackman.settings_test $(PYTEST) --cov-report=term-missing --cov-fail-under=98 --cov=.
 
 test: test.style test.unit
