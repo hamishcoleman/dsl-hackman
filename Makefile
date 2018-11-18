@@ -16,6 +16,7 @@ PACKAGES_XENIAL := \
     redis-server \
     gunicorn3 \
     python3-gevent \
+    flake8 \
 
 # Packages to install if we are running on Debian
 PACKAGES_DEBIAN := $(PACKAGES_XENIAL) \
