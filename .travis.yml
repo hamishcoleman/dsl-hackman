@@ -10,7 +10,8 @@ services:
 
 install:
   - sudo apt-get update
-  - make build-depends
+  - make build-depends; true
+  - pip install django-redis>=4.7.0
 
 script:
   - make
