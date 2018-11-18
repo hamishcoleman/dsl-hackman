@@ -9,6 +9,7 @@ services:
   - redis-server
 
 install:
+  - sudo apt-get update
   - make build-depends
 
 script:
