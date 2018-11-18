@@ -10,6 +10,7 @@ PACKAGES_XENIAL := \
     python3-coverage \
     python3-pytest-cov \
     python3-ipy \
+    python3-redis \
     python3-django-ratelimit \
     python3-django-cors-headers \
     python3-django-oauth-toolkit \

@@ -11,7 +11,8 @@ services:
 install:
   - sudo apt-get update
   - make build-depends-xenial
-  - pip install django-redis>=4.7.0 pytest-cov>=2.4.0
+  - wget http://http.us.debian.org/debian/pool/main/d/django-redis/python3-django-redis_4.7.0-1_all.deb
+  - sudo dpkg -i python3-django-redis*.deb
 
 script:
   - make
