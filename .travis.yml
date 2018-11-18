@@ -11,7 +11,7 @@ services:
 install:
   - sudo apt-get update
   - make build-depends-xenial
-  - pip install django-redis>=4.7.0
+  - pip install django-redis>=4.7.0 pytest-cov>=2.4.0
 
 script:
   - make
