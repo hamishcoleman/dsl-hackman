@@ -8,6 +8,7 @@ PACKAGES_XENIAL := \
     python3-pytest-django \
     python3-gunicorn \
     python3-coverage \
+    python3-pytest \
     python3-pytest-cov \
     python3-ipy \
     python3-redis \
@@ -42,17 +43,10 @@ dev.db:
 dev.run:
 	python3 manage.py runserver
 
-# Try to automatically detect if we are running on Debian, or in a virtualenv
-# (Debian has /usr/bin/pytest-3 for the python3 version of pytest)
-PYTEST := /usr/bin/pytest-3
-ifeq (,$(wildcard $(PYTEST)))
-    PYTEST := pytest
-endif
-
 test.style:
 	flake8
 
 test.unit:
-	env DJANGO_SETTINGS_MODULE=hackman.settings_test $(PYTEST) --cov-report=term-missing --cov-fail-under=98 --cov=.
+	env DJANGO_SETTINGS_MODULE=hackman.settings_test /usr/bin/pytest-3 --cov-report=term-missing --cov-fail-under=98 --cov=.
 
 test: test.style test.unit
