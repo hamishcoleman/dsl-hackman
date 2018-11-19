@@ -6,10 +6,11 @@ services:
   - redis-server
 
 install:
+  - rm /etc/apt/sources.list.d/*
+  - echo "deb http://httpredir.debian.org/debian/ stretch main" >/etc/apt/sources.list
   - sudo apt-get update
-  - make build-depends-xenial
-  - wget http://http.us.debian.org/debian/pool/main/d/django-redis/python3-django-redis_4.7.0-1_all.deb
-  - sudo dpkg -i python3-django-redis*.deb
+  - sudo apt-get dist-upgrade -y
+  - make build-depends
 
 script:
   - make
