@@ -9,7 +9,7 @@ install:
   - sudo rm -f /etc/apt/sources.list.d/*
   - echo "deb http://httpredir.debian.org/debian/ stretch main" |sudo tee /etc/apt/sources.list
   - sudo apt-get update
-  - sudo apt-get dist-upgrade -y
+  - sudo apt-get dist-upgrade -y --allow-unauthenticated
   - make build-depends
 
 script:
