@@ -11,7 +11,9 @@ install:
   - echo "deb http://httpredir.debian.org/debian/ stretch main" |sudo tee /etc/apt/sources.list
   - sudo apt-get update
   - sudo apt-get dist-upgrade -y --allow-unauthenticated
-  - make build-depends
+  - make build-depends-stretch
+  - wget http://http.us.debian.org/debian/pool/main/d/django-ratelimit/python3-django-ratelimit_0.4.0+8+gd58c489-3_all.deb
+  - sudo dpkg -i python3-django-ratelimit*.deb
 
 script:
   - make

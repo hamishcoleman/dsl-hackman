@@ -1,7 +1,7 @@
 all: test
 
-# Packages to install if we are running on Travis-CI (Ubuntu Xenial)
-PACKAGES_XENIAL := \
+# Packages to install if we are running on Debian Stretch
+PACKAGES_STRETCH := \
     python3-django \
     python3-flake8 \
     python3-jinja2 \
@@ -12,17 +12,17 @@ PACKAGES_XENIAL := \
     python3-pytest-cov \
     python3-ipy \
     python3-redis \
-    python3-django-ratelimit \
     python3-django-cors-headers \
     python3-django-oauth-toolkit \
+    python3-django-redis \
     redis-server \
     gunicorn3 \
     python3-gevent \
     flake8 \
 
-# Packages to install if we are running on Debian
-PACKAGES_DEBIAN := $(PACKAGES_XENIAL) \
-    python3-django-redis \
+# Packages to install if we are running on Debian Unstable
+PACKAGES_SID := $(PACKAGES_STRETCH) \
+    python3-django-ratelimit \
 
 # TODO - from the requirements.txt
 # pyserial>=3.2.1
@@ -30,10 +30,10 @@ PACKAGES_DEBIAN := $(PACKAGES_XENIAL) \
 
 
 build-depends:
-	sudo apt-get install -y $(PACKAGES_DEBIAN)
+	sudo apt-get install -y $(PACKAGES_SID)
 
-build-depends-xenial:
-	sudo apt-get install -y $(PACKAGES_XENIAL)
+build-depends-stretch:
+	sudo apt-get install -y $(PACKAGES_STRETCH)
 
 # Create or update the database
 dev.db:
