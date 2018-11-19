@@ -6,6 +6,7 @@ services:
   - redis-server
 
 install:
+  - sudo apt-get purge wireless-regdb
   - sudo rm -f /etc/apt/sources.list.d/*
   - echo "deb http://httpredir.debian.org/debian/ stretch main" |sudo tee /etc/apt/sources.list
   - sudo apt-get update
