@@ -6,8 +6,8 @@ services:
   - redis-server
 
 install:
-  - rm /etc/apt/sources.list.d/*
-  - echo "deb http://httpredir.debian.org/debian/ stretch main" >/etc/apt/sources.list
+  - sudo rm -f /etc/apt/sources.list.d/*
+  - echo "deb http://httpredir.debian.org/debian/ stretch main" |sudo tee /etc/apt/sources.list
   - sudo apt-get update
   - sudo apt-get dist-upgrade -y
   - make build-depends
