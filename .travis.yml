@@ -7,10 +7,12 @@ services:
 
 install:
   - sudo apt-get purge wireless-regdb
+  - sudo apt-get install -y debian-archive-keyring
   - sudo rm -f /etc/apt/sources.list.d/*
   - echo "deb http://httpredir.debian.org/debian/ stretch main" |sudo tee /etc/apt/sources.list
   - sudo apt-get update
-  - sudo apt-get dist-upgrade -y --allow-unauthenticated
+  - sudo apt-get dist-upgrade -y
+  - sudo apt-get install -y debian-archive-keyring
   - make build-depends-stretch
   - wget http://http.us.debian.org/debian/pool/main/d/django-ratelimit/python3-django-ratelimit_0.4.0+8+gd58c489-3_all.deb
   - sudo dpkg -i python3-django-ratelimit*.deb
