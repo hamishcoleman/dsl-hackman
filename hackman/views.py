@@ -174,25 +174,38 @@ def door_open(request, _door_api=None):
 @login_required(login_url='/login/')
 def account_actions(request):
     r = get_redis_connection('default')
+
+    user_id = request.user.id
+
     paid = (
-        payment_api.has_paid(request.user.id) !=
+        payment_api.has_paid(user_id) !=
         payment_enums.PaymentGrade.NOT_PAID
     )
 
-    valid_until = payment_api.get_valid_until(request.user.id)
+    valid_until = payment_api.get_valid_until(user_id)
     if valid_until is not None:
         valid_until = valid_until.strftime('%Y-%m')
 
-    return shortcuts.render(request, 'account_actions.jinja2', context={
-        'payment_form': forms.PaymentForm(
-            year_month_choices=_get_month_choices()),
-        'rfid_pair_form': forms.RfidCardPairForm(
-            initial={
-                'card_id': r.get('rfid_last_unpaired')
-            }),
-        'paid': paid,
-        'valid_until': valid_until,
-    })
+    last_unpaired_card = r.get("rfid_last_unpaired")
+    if last_unpaired_card is None:
+        last_unpaired_card = b""
+
+    return shortcuts.render(
+        request,
+        'account_actions.jinja2',
+        context={
+            'payment_form': forms.PaymentForm(
+                year_month_choices=_get_month_choices()
+            ),
+            'rfid_pair_form': forms.RfidCardPairForm(
+                initial={
+                    "card_id": last_unpaired_card.decode()
+                }
+            ),
+            'paid': paid,
+            'valid_until': valid_until,
+        }
+    )
 
 
 @login_required(login_url='/login/')
