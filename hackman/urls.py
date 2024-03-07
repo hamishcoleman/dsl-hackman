@@ -38,21 +38,32 @@ urlpatterns = [
     re_path(r'^login/', views.login, name='login'),
     re_path(r'^logout/', views.logout),
 
-    re_path('^password_change/$', auth_views.PasswordChangeView,
-            name='password_change'),
-    re_path('^password_change/done/$', auth_views.PasswordChangeDoneView,
-            name='password_change_done'),
+    re_path(
+        '^password_change/$',
+        auth_views.PasswordChangeView.as_view(),
+        name='password_change'
+    ),
+    re_path(
+        '^password_change/done/$',
+        views.password_change_done,
+        name='password_change_done'
+    ),
     re_path(
         '^password_reset/$',
-        auth_views.PasswordResetView,
+        auth_views.PasswordResetView.as_view(),
         name='password_reset'
     ),
-    re_path('^password_reset/done/$', auth_views.PasswordResetDoneView,
-            name='password_reset_done'),
-    re_path('^reset/(?P<uidb64>[0-9A-Za-z_-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',  # noqa
-            auth_views.PasswordResetConfirmView,
-            name='password_reset_confirm'),
-    re_path('^reset/done/$', auth_views.PasswordResetCompleteView,
+    re_path(
+        '^password_reset/done/$',
+        auth_views.PasswordResetDoneView.as_view(),
+        name='password_reset_done'
+    ),
+    re_path(
+        '^reset/(?P<uidb64>[0-9A-Za-z_-]+)/(?P<token>[0-9A-Za-z]{1,13}-[0-9A-Za-z]{1,20})/$',  # noqa
+        auth_views.PasswordResetConfirmView.as_view(),
+        name='password_reset_confirm'
+    ),
+    re_path('^reset/done/$', auth_views.PasswordResetCompleteView.as_view(),
             name='password_reset_complete'),
 
     re_path(r'^door_open/', views.door_open),
