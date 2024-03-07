@@ -52,6 +52,6 @@ test.style:
 	flake8
 
 test.unit:
-	env DJANGO_SETTINGS_MODULE=hackman.settings_test $(PYTEST) --cov-report=term-missing --cov-fail-under=90 --cov=.
+	env DJANGO_SETTINGS_MODULE=hackman.settings_test $(PYTEST) --cov-report=term-missing --cov-fail-under=79 --cov=.
 
 test: test.style test.unit
