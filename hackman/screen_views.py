@@ -36,6 +36,7 @@ def poll(request, _timeout=60):  # pragma: no cover
         'DOOR_OPEN_GRACE': '/screen/remind_payment/',
         'DOOR_OPEN_DENIED': '/screen/unpaid_membership/',
         'CARD_UNPAIRED': '/screen/unpaired_card/',
+        "PAYMENT_CLAIM": "/screen/unpaid_membership/",
     }
 
     r = get_redis_connection("default")
