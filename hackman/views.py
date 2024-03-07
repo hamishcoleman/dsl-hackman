@@ -78,7 +78,7 @@ def login(request):
                 auth.login(request, user)
 
                 redir_url = form.cleaned_data['redir_url']
-                if redir_url and is_safe_url(redir_url):  # pragma: no cover
+                if redir_url and is_safe_url(redir_url, allowed_hosts=request.get_host()):  # noqa
                     return shortcuts.redirect(redir_url)
                 else:
                     return shortcuts.redirect('/')
@@ -89,7 +89,7 @@ def login(request):
                 return result
 
     redir_url = request.GET.get('next')
-    if not is_safe_url(redir_url):
+    if not is_safe_url(redir_url, allowed_hosts=request.get_host()):
         redir_url = '/'
 
     return shortcuts.render(
@@ -106,7 +106,7 @@ def account_create(request):
 
     if request.method != 'POST':
         redir_url = request.GET.get('next')
-        if not is_safe_url(redir_url):
+        if not is_safe_url(redir_url, allowed_hosts=request.get_host()):
             redir_url = '/'
         return shortcuts.render(
             request, 'account_create.jinja2', context={
@@ -131,7 +131,7 @@ def account_create(request):
     auth.login(request, user,
                backend='django.contrib.auth.backends.ModelBackend')
 
-    if redir_url and is_safe_url(redir_url):  # pragma: no cover
+    if redir_url and is_safe_url(redir_url, allowed_hosts=request.get_host()):  # noqa
         return shortcuts.redirect(redir_url)
     else:
         return shortcuts.redirect('/')
