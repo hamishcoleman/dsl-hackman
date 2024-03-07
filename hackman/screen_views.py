@@ -16,7 +16,9 @@ def screen_ip_check(f):
 
     @functools.wraps(f)
     def auth(request, *args, **kwargs):
-        if IP(get_remote_ip(request)).iptype() != 'PRIVATE':
+        remote = get_remote_ip(request)
+        iptype = IP(remote).iptype()
+        if iptype not in ['LOOPBACK', 'PRIVATE']:
             return http.HttpResponseForbidden(
                 'Screen views can only be accessed on lan')
 

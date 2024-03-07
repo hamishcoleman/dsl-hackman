@@ -100,7 +100,9 @@ def login(request):
 
 
 def account_create(request):
-    if IP(get_remote_ip(request)).iptype() != 'PRIVATE':
+    remote = get_remote_ip(request)
+    iptype = IP(remote).iptype()
+    if iptype not in ['LOOPBACK', 'PRIVATE']:
         return http.HttpResponseForbidden(
             'You can only register an account from within DSL')
 
