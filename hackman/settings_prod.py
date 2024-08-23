@@ -41,12 +41,10 @@ STATIC_ROOT = '/var/www/hackman/hackman/static/'
 
 # RFID reader config
 RFID_READER = {
-    'BACKEND': 'hackman_rfid.reader_impls.dimsumlabs_door',
-    'HASH_SALT': 'd51e10354f570d35a54d2bc2c01f5fcb8725fb0bf6a58c7db02c5379f81a8a76',  # noqa
+    'BACKEND': 'hackman_rfid.reader_impls.arduino_cardreader',
     'CONFIG': {  # Implementation specific config
         'serial_port': '/dev/serial/by-id/usb-Silicon_Labs_CP2102_USB_to_UART_Bridge_Controller_0001-if00-port0',  # noqa
-        'baud_rate': 9600,
-        'timeout': 0.5,
+        'baud_rate': 115200,
     }
 }
 
