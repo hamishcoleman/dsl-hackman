@@ -21,6 +21,11 @@ def cards_read():
     hash_salt = settings.RFID_READER['HASH_SALT']
 
     for card, rawdata in impl.get_cards():
+        # if the card reader doesnt hand us debugging data, use the
+        # pre hashed card data
+        if rawdata is None:
+            rawdata = card
+
         # Double hash with salt
         cardhash = hashlib.sha256(
             b''.join((

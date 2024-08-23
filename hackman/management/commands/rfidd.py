@@ -19,12 +19,19 @@ class Command(BaseCommand):
             if not card:
                 continue
 
+            if rawdata is None:
+                # if we have no raw data, just use the card data
+                rawdata = card_hash
+            if isinstance(rawdata, bytes):
+                # make it readable
+                rawdata = rawdata.hex()
+
             if not card.user_id:
                 r.set('rfid_last_unpaired', card.id)
                 notification_api.notify_subject(b'door_event', json.dumps({
                     'event': 'CARD_UNPAIRED',
                     'card_id': card.id,
-                    'rawdata': rawdata.hex(),
+                    'rawdata': rawdata,
                 }))
                 continue
 
