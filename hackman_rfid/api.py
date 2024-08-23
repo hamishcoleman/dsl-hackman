@@ -18,9 +18,13 @@ def cards_read():
     """Yield hashed cards from configured backend"""
 
     impl = importlib.import_module(settings.RFID_READER['BACKEND'])
-    hash_salt = settings.RFID_READER['HASH_SALT']
+    hash_salt = settings.RFID_READER.get('HASH_SALT', None)
 
     for card, rawdata in impl.get_cards():
+        if hash_salt is None:
+            yield (card, rawdata)
+            continue
+
         # if the card reader doesnt hand us debugging data, use the
         # pre hashed card data
         if rawdata is None:
