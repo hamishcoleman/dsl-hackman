@@ -10,14 +10,27 @@ from . import models
 __all__ = ['cards_read', 'card_validate', 'card_pair']
 
 
+impl = importlib.import_module(settings.RFID_READER['BACKEND'])
+
+
 def _make_cache_key(card_hash: str) -> str:
     return 'rfid_card_{}'.format(card_hash)
+
+
+def _card_command(cmd):
+    """Send a command to the configured backend"""
+
+    _command = getattr(impl, "_command", None)
+    if not callable(_command):
+        # this backand cannot do
+        return
+
+    _command(cmd)
 
 
 def cards_read():
     """Yield hashed cards from configured backend"""
 
-    impl = importlib.import_module(settings.RFID_READER['BACKEND'])
     hash_salt = settings.RFID_READER.get('HASH_SALT', None)
 
     for card, rawdata in impl.get_cards():

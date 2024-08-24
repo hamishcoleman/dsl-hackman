@@ -33,13 +33,29 @@ class Command(BaseCommand):
                     'card_id': card.id,
                     'rawdata': rawdata,
                 }))
+                # Hacky magic number to turn blink LEDs in error pattern
+                rfid_api._card_command("7")
                 continue
 
             # TODO:
             # - lookup user_name and send it to the door open
 
-            hackman_api.door_open_if_paid(
+            opened = hackman_api.door_open_if_paid(
                 card.user_id,
                 source="CARD",
                 rawdata=rawdata,
             )
+
+            if opened:
+                # Hacky magic numbers to turn on green LED only
+                rfid_api._card_command("0")
+                rfid_api._card_command("1")
+                # TODO:
+                # - should have the green light turn off at the same time as
+                #   the lock shuts.
+                #   Adding the door lock timeout to the config would at least
+                #   allow the correct number to be known to this microservice,
+                #   but this microservice would need to have a timer added
+            else:
+                # Hacky magic number to turn blink LEDs in error pattern
+                rfid_api._card_command("7")

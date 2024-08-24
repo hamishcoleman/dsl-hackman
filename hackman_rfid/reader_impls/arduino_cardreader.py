@@ -58,3 +58,11 @@ def get_cards():
             continue
 
         buf += ch
+
+def _command(cmd):
+    """Send an arbitrary command packet"""
+    conn = _open()
+
+    buf = b"\x02" + cmd.encode("utf8") + b"\x04"
+
+    conn.write(buf)
