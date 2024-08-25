@@ -59,6 +59,7 @@ def get_cards():
 
         buf += ch
 
+
 def _command(cmd):
     """Send an arbitrary command packet"""
     conn = _open()
